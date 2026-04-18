@@ -1,106 +1,65 @@
-# Orbis MCP Server
+# @orbisapi/mcp
 
-[![npm version](https://img.shields.io/npm/v/@orbisapi/mcp.svg)](https://www.npmjs.com/package/@orbisapi/mcp)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![x402](https://img.shields.io/badge/payments-x402-blue)](https://x402.org)
-[![Base](https://img.shields.io/badge/network-Base-0052FF)](https://base.org)
+[![npm version](https://img.shields.io/npm/v/@orbisapi/mcp?color=000000)](https://www.npmjs.com/package/@orbisapi/mcp)
+[![MCP Registry](https://img.shields.io/badge/MCP_Registry-listed-000000)](https://registry.modelcontextprotocol.io/servers/io.github.OrbisAPI/orbis-mcp)
+[![GitHub Stars](https://img.shields.io/github/stars/OrbisAPI/orbis-mcp?style=flat&color=000000)](https://github.com/OrbisAPI/orbis-mcp/stargazers)
+[![License: MIT](https://img.shields.io/badge/License-MIT-000000.svg)](LICENSE)
 
-Give Claude, Cursor, Windsurf, and any MCP-compatible agent instant access to **1,000+ APIs** — paid with **$0.01 USDC on Base** via the [x402 protocol](https://x402.org). No API key juggling. Agents browse, call, and pay autonomously.
-
----
-
-## What agents can do with this
-
-- Search 1,000+ live APIs by category or keyword
-- Call any API — free tiers auto-subscribe, paid tiers settle via USDC on Base
-- Pay per call with x402 (no monthly subscriptions required)
-- Access weather, financial data, text utilities, crypto feeds, image tools, and more
+> MCP server for [Orbis](https://orbisapi.com) — gives Claude, Cursor, and any AI agent access to **1,000+ APIs** with x402 USDC micropayments on Base. **$0.01/call. No signup.**
 
 ---
 
-## Quick Setup
+## What this does
 
-### Claude Desktop (recommended — remote server, no install needed)
+This MCP server connects your AI agent to the Orbis API marketplace. Your agent can:
 
-Edit `~/Library/Application Support/Claude/claude_desktop_config.json` (macOS) or `%APPDATA%\Claude\claude_desktop_config.json` (Windows):
-
-```json
-{
-  "mcpServers": {
-    "orbis": {
-      "url": "https://orbisapi.com/api/mcp",
-      "headers": {
-        "x-orbis-key": "YOUR_ORBIS_KEY"
-      }
-    }
-  }
-}
-```
-
-No key? Remove the `headers` block — tools will prompt for credentials on first call, or call `register_agent` to create a free account.
+- **Browse** 1,000+ APIs across data, AI, finance, and utilities
+- **Call** any API directly — payment handled automatically via x402 on Base
+- **No API keys** — agents pay per call in USDC, no accounts needed
 
 ---
 
-### Cursor / Windsurf
+## Quickstart
 
-Add to your `.cursor/mcp.json` or equivalent:
+### Claude Desktop
 
-```json
-{
-  "mcp": {
-    "servers": {
-      "orbis": {
-        "url": "https://orbisapi.com/api/mcp",
-        "transport": "sse",
-        "headers": {
-          "x-orbis-key": "YOUR_ORBIS_KEY"
-        }
-      }
-    }
-  }
-}
-```
-
----
-
-### npx (stdio mode — any MCP host)
-
-```bash
-npx @orbisapi/mcp
-```
-
-Or install globally:
-
-```bash
-npm install -g @orbisapi/mcp
-orbis-mcp
-```
-
-Then add to your MCP host config:
+Add to `claude_desktop_config.json`:
 
 ```json
 {
   "mcpServers": {
     "orbis": {
       "command": "npx",
-      "args": ["-y", "@orbisapi/mcp"],
-      "env": {
-        "ORBIS_KEY": "YOUR_ORBIS_KEY"
-      }
+      "args": ["-y", "@orbisapi/mcp"]
     }
   }
 }
 ```
 
----
+**Config file location:**
+- macOS: `~/Library/Application Support/Claude/claude_desktop_config.json`
+- Windows: `%APPDATA%\Claude\claude_desktop_config.json`
 
-## Get an Orbis Key
+### Cursor
 
-1. Go to [orbisapi.com](https://orbisapi.com)
-2. Sign up (free)
-3. Copy your API key from the dashboard
+Add to Cursor settings → MCP:
 
-No key required to try — use anonymous mode and register via the `register_agent` tool.
+```json
+{
+  "mcpServers": {
+    "orbis": {
+      "command": "npx",
+      "args": ["-y", "@orbisapi/mcp"]
+    }
+  }
+}
+```
+
+### Any MCP-compatible agent
+
+```bash
+npx @orbisapi/mcp
+```
 
 ---
 
@@ -108,60 +67,47 @@ No key required to try — use anonymous mode and register via the `register_age
 
 | Tool | Description |
 |------|-------------|
-| `browse_apis` | Search 1,000+ APIs by keyword or category. Returns pricing, endpoints, and tier info. |
-| `call_api` | Call any Orbis API. Free tiers auto-subscribe. x402 tiers pay $0.01 USDC on Base. |
-| `register_agent` | Create a free Orbis account for your agent (one-time setup). |
-| `subscribe_to_api` | Subscribe to a specific API tier and receive an API key. |
+| `browse_apis` | Search and list available APIs on Orbis |
+| `call_api` | Call any API — x402 payment handled automatically |
+| `register_agent` | Register your agent wallet for tracking |
+| `subscribe_to_api` | Subscribe to an API for discounted access |
 
 ---
 
-## Example — asking Claude to use Orbis
+## How payments work
 
-> "Search Orbis for a weather API and get the current conditions in London"
+Orbis uses the [x402 protocol](https://x402.org) — an open HTTP payment standard built on Base. When your agent calls an API:
 
-Claude will:
-1. Call `browse_apis` with `search: "weather"`
-2. Pick an API and call `call_api` with the slug and endpoint
-3. Return the weather data
+1. Orbis returns a `402 Payment Required` response with payment details
+2. The MCP server handles the USDC payment on Base automatically
+3. The API call completes — total cost: **$0.01**
 
----
-
-## x402 Payments
-
-Orbis supports [x402](https://x402.org) — the open HTTP payment standard from Coinbase. Agents with a funded Base wallet can pay per API call in USDC with zero setup:
-
-```
-$0.01 USDC per call → settled on Base → no subscription required
-```
-
-Pass a signed EIP-3009 payment header as `x_payment` in `call_api` for autonomous agent payments.
+No wallets to configure for browsing. To make paid calls, provide your Base wallet via `ORBIS_KEY`.
 
 ---
 
-## API Categories
+## Environment Variables
 
-- Weather & Environmental
-- Financial Data & Markets  
-- Text Processing & NLP
-- Crypto & Blockchain
-- Image & Media
-- Developer Utilities
-- Health & Science
-- Business & B2B
-
-Full catalog: [orbisapi.com/marketplace](https://orbisapi.com/marketplace)
+| Variable | Required | Description |
+|----------|----------|-------------|
+| `ORBIS_KEY` | No | Your Orbis API key from [orbisapi.com](https://orbisapi.com) — enables paid API calls |
 
 ---
 
 ## Links
 
-- **Website:** [orbisapi.com](https://orbisapi.com)
-- **Marketplace:** [orbisapi.com/marketplace](https://orbisapi.com/marketplace)
-- **x402 Protocol:** [x402.org](https://x402.org)
-- **Base Network:** [base.org](https://base.org)
+- [Orbis Marketplace](https://orbisapi.com/marketplace)
+- [For AI Agents](https://orbisapi.com/foragents)
+- [x402 Protocol](https://x402.org)
+- [MCP Registry listing](https://registry.modelcontextprotocol.io/servers/io.github.OrbisAPI/orbis-mcp)
+- [npm package](https://www.npmjs.com/package/@orbisapi/mcp)
+
+---
+
+⭐ **If this is useful, star the repo** — it helps other developers find Orbis.
 
 ---
 
 ## License
 
-MIT
+MIT © [Orbis](https://orbisapi.com)
