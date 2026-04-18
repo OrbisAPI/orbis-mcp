@@ -1,0 +1,41 @@
+{
+  "name": "@orbisapi/mcp",
+  "version": "1.0.0",
+  "description": "MCP server for Orbis — 1,000+ APIs with x402 USDC micropayments on Base for Claude, Cursor, and AI agents",
+  "type": "module",
+  "bin": {
+    "orbis-mcp": "./bin/orbis-mcp.js"
+  },
+  "scripts": {
+    "start": "node bin/orbis-mcp.js"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "orbis",
+    "api-marketplace",
+    "x402",
+    "usdc",
+    "base",
+    "ai-agents",
+    "claude",
+    "cursor",
+    "micropayments"
+  ],
+  "author": "Orbis API <hello@orbisapi.com>",
+  "license": "MIT",
+  "homepage": "https://orbisapi.com",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OrbisAPI/orbis-mcp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/OrbisAPI/orbis-mcp/issues"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
