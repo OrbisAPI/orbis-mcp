@@ -5,7 +5,7 @@
 [![GitHub Stars](https://img.shields.io/github/stars/OrbisAPI/orbis-mcp?style=flat&color=000000)](https://github.com/OrbisAPI/orbis-mcp/stargazers)
 [![License: MIT](https://img.shields.io/badge/License-MIT-000000.svg)](LICENSE)
 
-> MCP server for [Orbis](https://orbisapi.com) — gives Claude, Cursor, and any AI agent access to **1,000+ APIs** with x402 USDC micropayments on Base. **$0.01/call. No signup.**
+> MCP server for [Orbis](https://orbisapi.com) — gives Claude, Cursor, and any AI agent access to **2,800+ APIs** with x402 USDC micropayments on Base. **$0.01/call. No signup.**
 
 ---
 
@@ -13,7 +13,7 @@
 
 This MCP server connects your AI agent to the Orbis API marketplace. Your agent can:
 
-- **Browse** 1,000+ APIs across data, AI, finance, and utilities
+- **Browse** 2,800+ APIs across data, AI, finance, and utilities
 - **Call** any API directly — payment handled automatically via x402 on Base
 - **No API keys** — agents pay per call in USDC, no accounts needed
 
