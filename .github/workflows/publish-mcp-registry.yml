@@ -1,0 +1,24 @@
+name: Publish to MCP Registry
+
+on:
+  workflow_dispatch:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Run mcp-publisher
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN_PUBLISH }}
+        run: |
+          npm config set //registry.npmjs.org/:_authToken $NPM_TOKEN
+          npx --yes @modelcontextprotocol/mcp-publisher publish \
+            --package @orbisapi/mcp \
+            --github-token $GITHUB_TOKEN
