@@ -1,7 +1,7 @@
 {
   "name": "@orbisapi/mcp",
-  "version": "1.0.4",
-  "description": "MCP server for Orbis \u2014 2,800+ APIs with x402 USDC micropayments on Base for Claude, Cursor, and AI agents",
+  "version": "1.0.6",
+  "description": "MCP server for Orbis — 8,000+ APIs with x402 USDC micropayments on Base for Claude, Cursor, and AI agents",
   "type": "module",
   "bin": {
     "orbis-mcp": "./bin/orbis-mcp.js"
@@ -37,5 +37,17 @@
   },
   "engines": {
     "node": ">=18"
+  },
+  "mcpServers": {
+    "orbis": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@orbisapi/mcp"
+      ],
+      "env": {
+        "WALLET_PRIVATE_KEY": ""
+      }
+    }
   }
 }
