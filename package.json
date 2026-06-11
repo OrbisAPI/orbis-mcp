@@ -1,6 +1,6 @@
 {
   "name": "@orbisapi/mcp",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "MCP server for Orbis — 8,000+ APIs with x402 USDC micropayments on Base for Claude, Cursor, and AI agents",
   "type": "module",
   "bin": {
@@ -49,5 +49,6 @@
         "WALLET_PRIVATE_KEY": ""
       }
     }
-  }
+  },
+  "mcpName": "io.github.OrbisAPI/orbis-mcp"
 }
